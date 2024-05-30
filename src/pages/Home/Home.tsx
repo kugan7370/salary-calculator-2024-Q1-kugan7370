@@ -1,48 +1,66 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import "./Home.scss"
+import "./Home.scss";
 import TitleContainer from "../../components/TitleContainer";
 import AllowanceInput from "../../components/AllowanceInput";
 import DeductionInput from "../../components/DeductionInput";
 import SalarySummary from "../../components/SalarySummary";
 import { useDispatch, useSelector } from "react-redux";
-import { addAllowance, removeAllowance, resetAllowances, updateAllowance } from "../../features/allowancesSlice";
-import { addDeduction, removeDeduction, resetDeducations, updateDeduction } from "../../features/deductionsSlice";
-import { resetBasicSalary, updateBasicSalary } from "../../features/basicSalarySlice";
+import {
+    addAllowance,
+    removeAllowance,
+    resetAllowances,
+    updateAllowance,
+} from "../../features/allowancesSlice";
+import {
+    addDeduction,
+    removeDeduction,
+    resetDeducations,
+    updateDeduction,
+} from "../../features/deductionsSlice";
+import {
+    resetBasicSalary,
+    updateBasicSalary,
+} from "../../features/basicSalarySlice";
 import { RootState } from "../../store/store";
 
-
-
 const HomePage: React.FC = () => {
-
     const dispatch = useDispatch();
 
     const allowances = useSelector((state: RootState) => state.allowances);
     const deductions = useSelector((state: RootState) => state.deductions);
     const basicSalary = useSelector((state: RootState) => state.basicSalary);
 
-
     const [totalAllowance, setTotalAllowance] = useState<number>(0);
-
 
     const handleChangBasicSalary = (e: ChangeEvent<HTMLInputElement>) => {
         const { value } = e.target;
         dispatch(updateBasicSalary(value));
     };
 
-    const handleAllowanceChange = (e: ChangeEvent<HTMLInputElement>, id: number) => {
+    const handleAllowanceChange = (
+        e: ChangeEvent<HTMLInputElement>,
+        id: number
+    ) => {
         const { name, value, type, checked } = e.target;
-        dispatch(updateAllowance({ id, key: name, value: type === 'checkbox' ? checked : value }));
+        dispatch(
+            updateAllowance({
+                id,
+                key: name,
+                value: type === "checkbox" ? checked : value,
+            })
+        );
     };
 
-    const handleDeductionChange = (e: ChangeEvent<HTMLInputElement>, id: number) => {
+    const handleDeductionChange = (
+        e: ChangeEvent<HTMLInputElement>,
+        id: number
+    ) => {
         const { name, value } = e.target;
         dispatch(updateDeduction({ id, key: name, value }));
     };
 
-
     const handleAddAllowance = () => {
         dispatch(addAllowance());
-
     };
 
     const handleAddDeduction = () => {
@@ -64,38 +82,36 @@ const HomePage: React.FC = () => {
     };
 
     const numberFormat = (numberWithCommas: string): number => {
-        const number = parseFloat(numberWithCommas.replace(/,/g, ''));
+        const number = parseFloat(numberWithCommas.replace(/,/g, ""));
         return isNaN(number) ? 0 : number;
     };
 
     useEffect(() => {
-        const total = allowances.reduce((acc, allowance) => acc + numberFormat(allowance.amount), 0);
+        const total = allowances.reduce(
+            (acc, allowance) => acc + numberFormat(allowance.amount),
+            0
+        );
         setTotalAllowance(total);
     }, [allowances]);
 
     const totalEarnings = numberFormat(basicSalary) + totalAllowance;
-    const totalEarningsForEPF = numberFormat(basicSalary) + allowances.filter(a => a.epf).reduce((acc, allowance) => acc + numberFormat(allowance.amount), 0);
-    const grossDeduction = deductions.reduce((acc, deduction) => acc + numberFormat(deduction.amount), 0);
+    const totalEarningsForEPF =
+        numberFormat(basicSalary) +
+        allowances
+            .filter((a) => a.epf)
+            .reduce((acc, allowance) => acc + numberFormat(allowance.amount), 0);
+    const grossDeduction = deductions.reduce(
+        (acc, deduction) => acc + numberFormat(deduction.amount),
+        0
+    );
     const grossEarnings = totalEarnings - grossDeduction;
-    const grossSalaryForEPF = totalEarningsForEPF - grossDeduction;
+    // const grossSalaryForEPF = totalEarningsForEPF - grossDeduction;
     const employeeEPF = totalEarningsForEPF * 0.08;
     const employerEPF = totalEarningsForEPF * 0.12;
     const employerETF = totalEarningsForEPF * 0.03;
     const APIT = calculateTax(grossEarnings);
     const netSalary = grossEarnings - employeeEPF - APIT;
     const CTC = grossEarnings + employerEPF + employerETF;
-
-    console.log('totalEarnings', totalEarnings);
-    console.log('totalEarningsForEPF', totalEarningsForEPF);
-    console.log('grossDeduction', grossDeduction);
-    console.log('grossEarnings', grossEarnings);
-    console.log('grossSalaryForEPF', grossSalaryForEPF);
-    console.log('employeeEPF', employeeEPF);
-    console.log('employerEPF', employerEPF);
-    console.log('employerETF', employerETF);
-    console.log('APIT', APIT);
-    console.log('netSalary', netSalary);
-    console.log('CTC', CTC);
 
 
 
@@ -126,11 +142,11 @@ const HomePage: React.FC = () => {
             constant = 73500;
         }
 
-        const tax = (grossEarnings * taxPercentage / 100) - constant;
-        return Math.max(tax, 0); // Ensure tax is not negative
+        const tax = (grossEarnings * taxPercentage) / 100 - constant;
+        return Math.max(tax, 0);
     }
 
-    console.log('totalAllowance', totalAllowance);
+    console.log("totalAllowance", totalAllowance);
     return (
         <div className="container">
             <div className="innerContainer">
@@ -139,12 +155,16 @@ const HomePage: React.FC = () => {
                     <div className="detailContainer">
                         <div className="detail">
                             <h6>Basic Salary</h6>
-                            <input type='text' onChange={handleChangBasicSalary} value={basicSalary} />
+                            <input
+                                type="text"
+                                onChange={handleChangBasicSalary}
+                                value={basicSalary}
+                            />
                         </div>
                         <div className="detail">
                             <h6>Earnings</h6>
                             <p>Allowance, Fixed Allowance, Bonus and etc.</p>
-                            {allowances.map(allowance => (
+                            {allowances.map((allowance) => (
                                 <AllowanceInput
                                     key={allowance.id}
                                     allowance={allowance}
@@ -153,7 +173,7 @@ const HomePage: React.FC = () => {
                                 />
                             ))}
                             <div className="addContainer" onClick={handleAddAllowance}>
-                                <button >
+                                <button>
                                     <img src="./Vector.png" alt="" />
                                 </button>
                                 <h6>Add New Allowance</h6>
@@ -161,8 +181,8 @@ const HomePage: React.FC = () => {
                         </div>
                         <div className="detail">
                             <h6>Deductions</h6>
-                            <p>Salary Advances, Loan Deductions and all</                            p>
-                            {deductions.map(deduction => (
+                            <p>Salary Advances, Loan Deductions and all</p>
+                            {deductions.map((deduction) => (
                                 <DeductionInput
                                     key={deduction.id}
                                     deduction={deduction}
@@ -197,7 +217,3 @@ const HomePage: React.FC = () => {
 };
 
 export default HomePage;
-
-
-
-
