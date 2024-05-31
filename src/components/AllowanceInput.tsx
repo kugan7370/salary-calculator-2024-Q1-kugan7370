@@ -19,11 +19,14 @@ const AllowanceInput: React.FC<AllowanceInputProps> = ({ allowance, handleChange
         <input type="text" placeholder="Pay Details (Title)" name="title" value={allowance.title} onChange={(e) => handleChange(e, allowance.id)} />
         <input type="text" name="amount" placeholder="Amount" value={allowance?.amount} onChange={(e) => handleChange(e, allowance.id)} />
         <div className="buttonGroup">
-            <button onClick={() => handleRemove(allowance.id)}>
+            <div className="btnContainer" onClick={() => handleRemove(allowance.id)}>
                 <img src="./clear.png" alt="clear" />
-            </button>
+            </div>
             <input type="checkbox" name="epf" checked={allowance.epf} onChange={(e) => handleChange(e, allowance.id)} />
             <span>EPF/ETF</span>
+            <div className="btnContainer-mobile" onClick={() => handleRemove(allowance.id)}>
+                <img src="./clear.png" alt="clear" />
+            </div>
         </div>
     </div>
 );
