@@ -1,30 +1,95 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Payroll Calculation Application
 
-Currently, two official plugins are available:
+This application is designed to automate the payroll calculation process, ensuring accuracy and efficiency in determining employee salaries, EPF/ETF contributions, deductions, and tax obligations. It streamlines the payroll management process for businesses, reducing manual effort and minimizing errors.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Payroll Include
+    Total Earnings Calculation
+    Total Earnings for EPF
+    Gross Deduction Calculation
+    Gross Earnings Calculation
+    Gross Salary for EPF
+    Employee EPF Contribution
+    Employer EPF Contribution
+    Employer ETF Contribution
+    Advanced Personal Income Tax (APIT)
+    Net Salary Calculation
+    Cost to Company (CTC)
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+    Add/update Basic Salary.
 
-- Configure the top-level `parserOptions` property like this:
+    Add/update Earnings or Deductions. They should
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+    Check or uncheck EPF/ETF applicability (tick boxes) from specific
+    Earnings categories.
+
+    EPF/ETF for each earning or deduction (if applicable).
+
+    Delete specific Earnings or Deductions.
+    
+    reset and clear the form.
+
+    Makes any changes to any inputs, it will automatically calculate the salary accordingly
+
+
+
+
+
+
+## Implemented Requirements
+
+    React with ES6+
+    React functional components with React hooks
+    Manage state with Redux Toolkit
+    Followed React best practices
+    Followed folder structure
+    Mobile Responsiveness
+    resolved all console errors and warnings
+    Typescript
+    Persist input data on page refresh
+## Screenshots
+
+![App Screenshot](https://res.cloudinary.com/dpr0z7adq/image/upload/v1717144196/payroll-calculator/af0dfade-ba7d-44f4-836f-3547e6f84274.png)
+
+
+
+
+
+## Deployed On Render
+
+
+    https://salary-calculator-2024-q1-kugan7370.onrender.com/
+## Tech Stack
+
+**Client:** React, Redux Toolkit, Sass, Typescript
+
+
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/kugan7370/salary-calculator-2024-Q1-kugan7370.git
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Go to the project directory
+
+```bash
+  cd salary-calculator-2024-Q1-kugan7370
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run dev
+```
+
