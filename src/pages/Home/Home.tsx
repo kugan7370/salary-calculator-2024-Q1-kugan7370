@@ -146,7 +146,6 @@ const HomePage: React.FC = () => {
         return Math.max(tax, 0);
     }
 
-    console.log("totalAllowance", totalAllowance);
     return (
         <div className="container">
             <div className="innerContainer">
