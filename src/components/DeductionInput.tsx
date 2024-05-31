@@ -16,7 +16,7 @@ interface DeductionInputProps {
 const DeductionInput: React.FC<DeductionInputProps> = ({ deduction, handleChange, handleRemove }) => (
     <div className="innerDetailContainer">
         <input type="text" name="title" value={deduction.title} placeholder="Any Reduction" onChange={(e) => handleChange(e, deduction.id)} />
-        <input type="text" name="amount" value={deduction.amount} onChange={(e) => handleChange(e, deduction.id)} />
+        <input type="text" name="amount" value={deduction.amount} placeholder="Amount" onChange={(e) => handleChange(e, deduction.id)} />
         <div className="buttonGroup">
             <div className="btnContainer" onClick={() => handleRemove(deduction.id)}>
                 <img src="./clear.png" alt="clear" />

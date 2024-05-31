@@ -16,7 +16,7 @@ const deductionsSlice = createSlice({
     reducers: {
         addDeduction: (state) => {
             const newId = state.length ? state[state.length - 1].id + 1 : 1;
-            state.push({ id: newId, title: "", amount: "0" });
+            state.push({ id: newId, title: "", amount: "" });
         },
         removeDeduction: (state, action: PayloadAction<number>) => {
             return state.filter((deduction) => deduction.id !== action.payload);

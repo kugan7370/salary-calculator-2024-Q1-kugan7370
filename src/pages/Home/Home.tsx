@@ -157,7 +157,7 @@ const HomePage: React.FC = () => {
                             <input
                                 type="text"
                                 onChange={handleChangBasicSalary}
-                                value={basicSalary}
+                                value={(basicSalary)}
                             />
                         </div>
                         <div className="detail">

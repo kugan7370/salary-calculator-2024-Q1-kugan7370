@@ -17,7 +17,7 @@ const allowancesSlice = createSlice({
     reducers: {
         addAllowance: (state) => {
             const newId = state.length ? state[state.length - 1].id + 1 : 1;
-            state.push({ id: newId, title: '', amount: '0', epf: false });
+            state.push({ id: newId, title: '', amount: '', epf: false });
         },
         removeAllowance: (state, action: PayloadAction<number>) => {
             return state.filter(allowance => allowance.id !== action.payload);
